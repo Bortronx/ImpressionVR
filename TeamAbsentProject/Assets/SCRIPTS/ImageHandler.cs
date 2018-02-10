@@ -11,8 +11,18 @@ public class ImageHandler : MonoBehaviour
 
     void Awake()
     {
+        LoadNewImages();
+    }
+
+    public static void LoadNewImages()
+    {
         ImageFiles = Directory.GetFiles(Application.dataPath
-                    + "\\Resources", "*.jpg").Select(Path.GetFileName).ToArray();
+                                        + "\\Resources", "*.jpg").Select(Path.GetFileName).ToArray();
+    }
+
+    public void RemoveImages()
+    {
+        
     }
 }
 

@@ -5,62 +5,62 @@ using UnityEngine;
 
 public class ImagePack : MonoBehaviour
 {
-    public float LifeStartTime;
-    public float ImagePackDuration = 10;
-
-    public List<GameObject> FrameCollection;
-    public float FrameYScale;
-
-    public int NumOfFrames = 10;
-
-    private Vector3 _newPosition = Vector3.zero;
-
     public ImageCollection ImageCollection;
     public ImageHandler Handler;
 
-    public bool IsRelated;
+    private float LifeStartTime;
+    public List<GameObject> Frame;
+
+    //FramesInAPack
+    private int _numOfFrames = 10;
 
     // Use this for initialization
 	void Start ()
 	{
+        
+	    _numOfFrames = (int)(ImageCollection.Radius * 2 * Mathf.PI) / ImageCollection.MaxImageSize/2;
 	    //IntitializeFrames();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if(!(FrameCollection.Count > 0)) return;
-	    if ((Time.timeSinceLevelLoad - LifeStartTime) > ImagePackDuration)
-	        FadeAway();
+        //if(!(FrameCollection.Count > 0)) return;
+	    //if ((Time.timeSinceLevelLoad - LifeStartTime) > ImagePackDuration)
+	        //FadeAway();
 	}
+
+
 
     void FadeAway()
     {
         // Change frame scale and radius from player.
-        if (FrameCollection[0].transform.localScale.y < FrameYScale)
-        {
-            Destroy(gameObject);
-        }
+        //if (FrameCollection[0].transform.localScale.y < FrameYScale)
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
-    public void GenerateNewPosition()
+    public Vector3 NewRandomPosition()
     {
-        _newPosition = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
+        return new Vector3(Random.Range(-10, 10) + ImageCollection.Radius, Random.Range(-10, 10), Random.Range(-10, 10));
     }
 
     public void GenerateNewFrames()
     {
-        for (int i = 0; i < NumOfFrames; i++)
+        for (int i = 0; i < _numOfFrames; i++)
         {
-            FrameCollection.Add(new GameObject("Frame" + ImageCollection.FrameCount));
-            GameObject currentFrame = FrameCollection[i];
+            Frame.Add(new GameObject("Frame" + Frame.Count));
+            GameObject currentFrame = Frame[Frame.Count -1];
             currentFrame.AddComponent<Frame>();
+            currentFrame.GetComponent<Frame>().ImageThickness = ImageCollection.ImageThickness;
+            currentFrame.GetComponent<Frame>().FrameThickness = ImageCollection.FrameThickness;
+            currentFrame.GetComponent<Frame>().FrameOutlineProportion = ImageCollection.FrameOutlineProportion;
+            currentFrame.GetComponent<Frame>().ImagePack = this;
             currentFrame.transform.parent = transform;
-            currentFrame.transform.localPosition += _newPosition;
+            currentFrame.transform.localPosition += NewRandomPosition();
             currentFrame.transform.localRotation = transform.rotation;
             Handler.Frames.Add(currentFrame);
-            GenerateNewPosition();
-            ImageCollection.FrameCount++;
         }
     }
 
@@ -68,7 +68,7 @@ public class ImagePack : MonoBehaviour
     {
         ImageCollection = transform.parent.GetComponent<ImageCollection>();
         Handler = transform.parent.GetComponent<ImageHandler>();
-        FrameCollection = new List<GameObject>();
+        Frame = new List<GameObject>();
         LifeStartTime = Time.timeSinceLevelLoad;
     }
 }

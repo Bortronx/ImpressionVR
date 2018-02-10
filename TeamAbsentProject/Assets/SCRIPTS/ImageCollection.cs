@@ -2,59 +2,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImageCollection : MonoBehaviour {
-
-    public static int FrameCount = 0;
-    public int CurrentFrameCount = FrameCount;
-    public int PackCount = 0;
-    public static float RadiusStatic = 10;
+[RequireComponent(typeof(ImageHandler))]
+public class ImageCollection : MonoBehaviour
+{
     public float Radius = 100;
-    public int TotalImagePacks = 1;
+    public int MaxImageSize = 50;
 
-    public float RotationInterval;
-    private Vector3 _defaultPosition;
+    public float ImageThickness = 0.02f;
+    public float FrameThickness = 0.02f;
+    public float FrameOutlineProportion = 0.10f;
+
+    [SerializeField]
+    private float _rotationInterval;
     private Vector3 _defaultRotation;
-
+    
     private int _imagePackIndex;
-    private int _imagePackLevel = 20;
+    private int _imagePacksInARevolution = 20;
 
-    public List<GameObject> ImagePackCollection;
+    private ImageHandler _handler;
+    private List<GameObject> _imagePackCollection;
 
-    public bool isGeneratingSphere;
+    private delegate void CollectionProcessing();
+    private CollectionProcessing _process;
 
-
-    public bool IsRotating { get; set; }
     // Use this for initialization
     void Start ()
     {
-        RadiusStatic = Radius;
-        ImagePackCollection = new List<GameObject>();
+        _handler = GetComponent<ImageHandler>();
+        _imagePackCollection = new List<GameObject>();
         _defaultRotation = new Vector3(0,0,70);
-        _defaultPosition = new Vector3(Radius, 0, 0);
-        RotationInterval = -10;
-        isGeneratingSphere = true;
+        _rotationInterval = -10;
+        _process = GenerateImagePack;
     }
 	
 	// Update is called once per frame
 	void Update ()
 	{
-
-        if(isGeneratingSphere)
-            GenerateImagePack();
-
-	    RotateToLocation();
+	    _process();
     }
 
 
-    void GenerateImagePack()
+    private void GenerateImagePack()
     {
-        if (_imagePackIndex < _imagePackLevel)
+        if (_imagePackIndex < _imagePacksInARevolution)
         {
-            ImagePackCollection.Add(new GameObject("ImagePack" + PackCount));
-            GameObject currentImagePack = ImagePackCollection[_imagePackIndex];
+            _imagePackCollection.Add(new GameObject("ImagePack" + _imagePackIndex));
+            GameObject currentImagePack = _imagePackCollection[_imagePackCollection.Count-1];
             currentImagePack.AddComponent<ImagePack>();
+            currentImagePack.GetComponent<ImagePack>().ImageCollection = this;
+            currentImagePack.GetComponent<ImagePack>().Handler = _handler;
             currentImagePack.transform.parent = transform;
-            currentImagePack.transform.localPosition = _defaultPosition;
+            currentImagePack.transform.localPosition = Vector3.zero;
             currentImagePack.GetComponent<ImagePack>().IntitializeFrames();
             currentImagePack.GetComponent<ImagePack>().GenerateNewFrames();
             _defaultRotation.y += 15;
@@ -63,30 +61,30 @@ public class ImageCollection : MonoBehaviour {
         }
         else
         {
-            _defaultRotation.z += RotationInterval;
-            _imagePackLevel += 20;
+            _defaultRotation.z += _rotationInterval;
+            _imagePacksInARevolution += 20;
 
             if (_defaultRotation.z < -70)
             {
                 _defaultRotation.z = 70;
-                isGeneratingSphere = false;
-                StartRotation();
+                _process = RotateImagePacks;
                 
             }
         }
     }
 
-    public void RotateToLocation()
+    public void RotateImagePacks()
     {
-        if (IsRotating)
-        {
             transform.Rotate(Vector3.up * Time.deltaTime * 10, Space.World);
-        }
     }
 
-    public void StartRotation()
+    public int GetTotalFrameCount()
     {
-        IsRotating = true;
+        int totalFrames = 0;
+        foreach (GameObject pack in _imagePackCollection)
+        {
+            totalFrames += pack.GetComponent<ImagePack>().Frame.Count;
+        }
+        return totalFrames;
     }
-
 }

@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -43,7 +43,7 @@ MonoBehaviour:
     y: 0
     width: 2560
     height: 1037
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 785, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 36
+  controlID: 115
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_MinSize: {x: 304, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 37
+  controlID: 116
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_MinSize: {x: 304, y: 221}
   m_MaxSize: {x: 8004, y: 4021}
   vertical: 0
-  controlID: 38
+  controlID: 117
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -202,8 +202,8 @@ MonoBehaviour:
     y: 0
     width: 756
     height: 626
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 221}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -462,14 +462,14 @@ MonoBehaviour:
     height: 605
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 1590.289015707659
+  lastFramingTime: 4859.948216607998
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -564.75885, y: -363.71045, z: -145.00531}
+    m_Target: {x: 9.08794, y: -1.7582862, z: 109.869965}
     speed: 2
-    m_Value: {x: -564.75885, y: -363.71045, z: -145.00531}
+    m_Value: {x: 9.08794, y: -1.7582862, z: 109.869965}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -493,13 +493,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.33713326, y: 0.6301067, z: -0.35092112, w: -0.60511225}
+    m_Target: {x: -0.008718781, y: -0.025096744, z: 0.00030452124, w: -0.99964696}
     speed: 2
-    m_Value: {x: -0.3371333, y: 0.63010675, z: -0.35092115, w: -0.6051123}
+    m_Value: {x: -0.008718781, y: -0.025096744, z: 0.00030452124, w: -0.99964696}
   m_Size:
-    m_Target: 966.1545
+    m_Target: 114.917534
     speed: 2
-    m_Value: 966.1545
+    m_Value: 114.917534
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -620,19 +620,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Resources
+    - Assets/SCRIPTS
   m_ViewMode: 1
   m_StartGridSize: 39
   m_LastFolders:
-  - Assets/Resources
+  - Assets/SCRIPTS
   m_LastFoldersGridSize: 39
   m_LastProjectPath: F:\Projects\MANGOHACKS\ImpressionVR\TeamAbsentProject
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 6e290000
-    m_LastClickedID: 10606
-    m_ExpandedIDs: 00000000622800006e29000000ca9a3bffffff7f
+    m_SelectedIDs: 0a2c0000
+    m_LastClickedID: 11274
+    m_ExpandedIDs: 000000006a2800007629000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -660,7 +660,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000062280000be2800006e290000d22b0000
+    m_ExpandedIDs: 000000006a28000076290000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -864,9 +864,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b084ccff9283ccffee81ccff9280ccff747fccff567eccff387dccff087cccffea7accffcc79ccffae78ccff9077ccff7276ccff5475ccff3674ccff1873ccfffa71ccffdc70ccffbe6fccffa06eccff706dccff526cccff346bccff166accfff868ccffda67ccffaa66ccff8c65ccff6e64ccff5063ccff2062ccff0261ccffe45fccffc65eccffa85dccff8a5cccff6a5bccff4c5accff2e59ccff1058ccfff256ccffd455ccffb654ccff9853ccff7a52ccff5c51ccff3e50ccff1e4fccff004eccffe24cccffc44bccffa64accff8849ccff6a48ccff4c47ccff2e46ccff0445ccffe643ccff
-    m_LastClickedID: -3373904
-    m_ExpandedIDs: da57ccff7484ccffa2fadbffaefadbfff262e4ff1663e4ff0c76ebfff477ebffc879ebffded9ecff14daecffc85afcffce5afcff54dfffff98fbffff00000000ea2d0000a2490000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 40b3ecff64b3ecfff059efff025aefffeed0f0ff06d1f0fffeebf0ff3aecf0ff00fbf2ff12fbf2ffc693f3ffcc93f3ffa029f9ffc429f9ff6ebefdff7abefdffc635feff0236feff7efbffff00000000f02d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

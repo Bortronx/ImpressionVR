@@ -11,39 +11,19 @@ public class ImagePack : MonoBehaviour
     public List<GameObject> FrameCollection;
     public float FrameYScale;
 
-    private Transform _imagePackOrigin;
-    private int _imagePackRadius;
-
-    public float _yRotationInterval;
-    public float _xRotationInterval;
-
-    private float _yFrameRotation;
-    private float _xFrameRotation;
-
-    public int _numOfFrames = 10;
+    public int NumOfFrames = 10;
 
     private Vector3 _newPosition = Vector3.zero;
 
-    public ImageHandler handler;
+    public ImageCollection ImageCollection;
+    public ImageHandler Handler;
 
     public bool IsRelated;
-    private bool _isRotating;
-
-    public bool IsRotating
-    {
-        get { return _isRotating; }
-        set { _isRotating = value; }
-    }
 
     // Use this for initialization
 	void Start ()
 	{
-	    handler = transform.parent.GetComponent<ImageHandler>();
-	    FrameCollection = new List<GameObject>();
-        GenerateNewFrames();
-	    LifeStartTime = Time.timeSinceLevelLoad;
-	    _xRotationInterval = 40;
-	    _yRotationInterval = 40;
+	    //IntitializeFrames();
 	}
 	
 	// Update is called once per frame
@@ -52,8 +32,6 @@ public class ImagePack : MonoBehaviour
         if(!(FrameCollection.Count > 0)) return;
 	    if ((Time.timeSinceLevelLoad - LifeStartTime) > ImagePackDuration)
 	        FadeAway();
-
-        RotateToLocation();
 	}
 
     void FadeAway()
@@ -70,32 +48,27 @@ public class ImagePack : MonoBehaviour
         _newPosition = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
     }
 
-    void GenerateNewFrames()
+    public void GenerateNewFrames()
     {
-        for (int i = 0; i < _numOfFrames; i++)
+        for (int i = 0; i < NumOfFrames; i++)
         {
             FrameCollection.Add(new GameObject("Frame" + ImageCollection.FrameCount));
             GameObject currentFrame = FrameCollection[i];
             currentFrame.AddComponent<Frame>();
             currentFrame.transform.parent = transform;
-            currentFrame.SetActive(true);
             currentFrame.transform.localPosition += _newPosition;
-            handler.Frames.Add(currentFrame);
+            currentFrame.transform.localRotation = transform.rotation;
+            Handler.Frames.Add(currentFrame);
             GenerateNewPosition();
             ImageCollection.FrameCount++;
         }
     }
 
-    public void RotateToLocation()
+    public void IntitializeFrames()
     {
-        if (IsRotating)
-        {
-            transform.Rotate(Vector3.up * Time.deltaTime * 15, Space.World);
-        }
-    }
-
-    public void StartRotation()
-    {
-        IsRotating = true;
+        ImageCollection = transform.parent.GetComponent<ImageCollection>();
+        Handler = transform.parent.GetComponent<ImageHandler>();
+        FrameCollection = new List<GameObject>();
+        LifeStartTime = Time.timeSinceLevelLoad;
     }
 }

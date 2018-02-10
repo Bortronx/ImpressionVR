@@ -7,70 +7,12 @@ using UnityEngine;
 public class ImageHandler : MonoBehaviour
 {
     public List<GameObject> Frames;
-    public static string[] ImageFiles = Directory.GetFiles("F:\\Projects\\MANGOHACKS\\TeamAbsentProject\\Assets\\Resources", "*.jpg").Select(Path.GetFileName).ToArray();
+    public static string[] ImageFiles;
 
-
-    void Start()
+    void Awake()
     {
-
+        ImageFiles = Directory.GetFiles(Application.dataPath
+                    + "\\Resources", "*.jpg").Select(Path.GetFileName).ToArray();
     }
-
-    
-
 }
-
-
-
-
-
-
-
- //   Texture2D[] textList;
-
- //   string[] files;
- //   string pathPreFix;
-
- //    Use this for initialization
- //   void Start () {
-
-	//    Change this to change pictures folder
-	//    string path = @"C:\Users\Public\Pictures\Sample Pictures\";
-
-	//    pathPreFix = @"file://";
-
-	//    files = System.IO.Directory.GetFiles(path, "*.jpg");
-
-	//    StartCoroutine(LoadImages());
-
- //   }
-	
-	// Update is called once per frame
-	//void Update () {
-		
-	//}
-
-
- //   private IEnumerator LoadImages()
- //   {
- //       load all images in default folder as textures and apply dynamically to plane game objects.
- //       6 pictures per page
- //       textList = new Texture2D[files.Length];
-
- //       int dummy = 0;
- //       foreach (string tstring in files)
- //       {
-
- //           string pathTemp = pathPreFix + tstring;
- //           WWW www = new WWW(pathTemp);
- //           yield return www;
- //           Texture2D texTmp = new Texture2D(1024, 1024, TextureFormat.DXT1, false);
- //           www.LoadImageIntoTexture(texTmp);
-
- //           textList[dummy] = texTmp;
-
- //           Frames[dummy].renderer.material.SetTexture("_MainTex", texTmp);
- //           dummy++;
- //       }
- //   }
-
 

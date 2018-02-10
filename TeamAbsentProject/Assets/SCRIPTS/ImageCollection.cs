@@ -13,29 +13,37 @@ public class ImageCollection : MonoBehaviour {
 
     public float RotationInterval;
     private Vector3 _defaultPosition;
-    private Vector3 _defaultRotation = Quaternion.identity.eulerAngles;
+    private Vector3 _defaultRotation;
 
     private int _imagePackIndex;
     private int _imagePackLevel = 20;
 
     public List<GameObject> ImagePackCollection;
 
+    public bool isGeneratingSphere;
+
+
+    public bool IsRotating { get; set; }
     // Use this for initialization
     void Start ()
     {
         RadiusStatic = Radius;
         ImagePackCollection = new List<GameObject>();
+        _defaultRotation = new Vector3(0,0,70);
         _defaultPosition = new Vector3(Radius, 0, 0);
-        GenerateImagePack();
-        RotationInterval = 10;
-        InvokeRepeating("GenerateImagePack", 2.0f, 1f);
+        RotationInterval = -10;
+        isGeneratingSphere = true;
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 
+        if(isGeneratingSphere)
+            GenerateImagePack();
 
-	}
+	    RotateToLocation();
+    }
 
 
     void GenerateImagePack()
@@ -47,17 +55,38 @@ public class ImageCollection : MonoBehaviour {
             currentImagePack.AddComponent<ImagePack>();
             currentImagePack.transform.parent = transform;
             currentImagePack.transform.localPosition = _defaultPosition;
-            currentImagePack.GetComponent<ImagePack>().StartRotation();
-            currentImagePack.transform.Rotate(_defaultPosition);
-            if (_imagePackIndex > 200)
-                currentImagePack.GetComponent<ImagePack>()._yRotationInterval += 10;
+            currentImagePack.GetComponent<ImagePack>().IntitializeFrames();
+            currentImagePack.GetComponent<ImagePack>().GenerateNewFrames();
+            _defaultRotation.y += 15;
+            currentImagePack.transform.rotation = Quaternion.Euler(_defaultRotation);
             _imagePackIndex++;
         }
         else
         {
-            _defaultRotation.z += -100;
+            _defaultRotation.z += RotationInterval;
             _imagePackLevel += 20;
+
+            if (_defaultRotation.z < -70)
+            {
+                _defaultRotation.z = 70;
+                isGeneratingSphere = false;
+                StartRotation();
+                
+            }
         }
+    }
+
+    public void RotateToLocation()
+    {
+        if (IsRotating)
+        {
+            transform.Rotate(Vector3.up * Time.deltaTime * 10, Space.World);
+        }
+    }
+
+    public void StartRotation()
+    {
+        IsRotating = true;
     }
 
 }

@@ -31,7 +31,7 @@ public class Frame : MonoBehaviour
     public string Texture;
 
     private bool _moveToHand;
-    private Vector3 direction;
+    private Vector3 _direction;
     private Vector3 _targetTransofrm;
 
     public List<string> Tags
@@ -58,8 +58,8 @@ public class Frame : MonoBehaviour
 	void Update () {
 
         if(!_moveToHand) return;
-	    direction = transform.position - _targetTransofrm;
-	    transform.Translate(direction.normalized * Time.deltaTime);
+	    _direction = transform.position - _targetTransofrm;
+	    transform.Translate(_direction.normalized * Time.deltaTime);
     }
 
     public void ShowNewImage()
@@ -74,7 +74,7 @@ public class Frame : MonoBehaviour
         Image = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Image.transform.parent = transform;
         Image.transform.localPosition = _imageOffset;
-        Image.transform.rotation = Quaternion.identity;
+        Image.transform.rotation = ImagePackParent.transform.rotation;
         Image.transform.localScale = _newImageScale;
 
         _imageMat = Image.GetComponent<Renderer>().material;
@@ -92,7 +92,7 @@ public class Frame : MonoBehaviour
         FrameBody = GameObject.CreatePrimitive(PrimitiveType.Cube);
         FrameBody.transform.parent = transform;
         FrameBody.transform.localPosition = Vector3.zero;
-        FrameBody.transform.rotation = Quaternion.identity;
+        FrameBody.transform.rotation = ImagePackParent.transform.rotation;  
         FrameBody.transform.localScale = _newFrameBodyScale;
 
         ScaleFrameBody();
